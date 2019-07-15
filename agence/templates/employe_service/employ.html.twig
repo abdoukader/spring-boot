@@ -1,0 +1,63 @@
+{% extends 'base.html.twig'%}
+
+{% form_theme formeEm 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    <h1> inscrire un employe</h1>
+
+    {{ form_start(formeEm) }}
+
+    {{ form_widget(formeEm) }}
+    
+    <button type="submit" class="btn btn-success">
+
+            {% if modd %}
+            MODIFIER
+            {% else %}
+            AJOUTER
+            {% endif %}
+
+    </button>
+
+    {{ form_end(formeEm) }}
+
+     <br>
+    
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID SERVICE</th>
+      <th scope="col">MATRICULE</th>
+      <th scope="col">NOM_COMPLET</th>
+      <th scope="col">DATENAISSANCE</th>
+      <th scope="col">SALAIRE</th>
+      <th scope="col">SERVICE</th>
+      <th scope="col">MODIFIER</th>
+      <th scope="col">SUPPRIMER</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for employe in reqt %}
+    <tr class="table-secondary">
+      <th scope="row">{{employe.id}}</th>
+      <th scope="row">{{employe.matricule}}</th>
+      <th scope="row">{{employe.nomComplet}}</th>
+      <th scope="row">{{employe.datenaiss |date ('d/m/Y')}}</th>
+      <th scope="row">{{employe.salaire}}</th>
+      <th scope="row">{{employe.service.libelle}}</th>
+
+
+      <td> <button type="button" class="btn btn-success">
+         <a href="/employe_service/{{employe.id}}/modifier"> MODIFIER </a></button> </td>
+
+    {# <td><a href="{{path('employe_service_edit',{'id':empl.id})}}"class="btn btn-success">MODIFIER</a>  </td> #}
+      <td><button type="button" class="btn btn-danger">
+          <a href="/employe_service/{{employe.id}}">SUPPRIMER</a></button></td> 
+    </tr>
+    {% endfor %}
+   
+  </tbody>
+</table> 
+
+{% endblock %}

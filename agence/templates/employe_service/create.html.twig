@@ -1,0 +1,67 @@
+{% extends 'base.html.twig'%}
+
+{% block body %}
+
+    <h1> ajouter un service</h1>
+
+    {{ form_start(forme) }}
+     <div class="forme-groupe">
+         <label for="">libelle</label>
+         {{ form_widget(forme.libelle) }}
+         <br>
+         <button type="submit" class="btn btn-success">
+
+         {% if modd %}
+            MODIFIER
+            {% else %}
+            AJOUTER
+            {% endif %}
+
+            </button>
+
+     </div>
+     {{ form_end(forme) }}
+
+     <br>
+    
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID SERVICE</th>
+      <th scope="col">LIBELLE</th>
+      <th scope="col">MODIFIER</th>
+      <th scope="col">SUPPRIMER</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for service in reqt %}
+    <tr class="table-secondary">
+      <th scope="row">{{service.id}}</th>
+      <th scope="row">{{service.libelle}}</th>
+
+
+      <td> <button type="button" class="btn btn-success">
+         <a href="/employe_service/{{service.id}}/modif"> MODIFIER </a></button> </td>
+
+      <td><button type="button" class="btn btn-danger">
+          <a href="/employe_service/{{service.id}}/supprime">SUPPRIMER</a></button></td> 
+          {# <button class="btn btn-danger" onclick="supprime ({{service.id}})">SUPPRIMER</button> #}
+    </tr>
+    {% endfor %}
+   
+  </tbody>
+</table> 
+
+{% endblock %}
+
+    {% block javascripts %}
+
+    <script>
+        function supp(id){
+            if(confirm("Est-vous sure de vouloir supprimer ?")){
+                document.location.href="/employe_service/"+id+"supprime";
+            }
+        }
+    </script>
+
+    {% endblock %}
