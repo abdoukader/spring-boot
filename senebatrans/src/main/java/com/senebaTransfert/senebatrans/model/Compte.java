@@ -1,13 +1,11 @@
 package com.senebaTransfert.senebatrans.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -23,7 +21,7 @@ public class Compte {
     private int numerocompte;
     //@NotBlank
     @Column(length = 50)
-    private long solde;
+    private int solde;
     @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date datecreation;
 
@@ -44,12 +42,11 @@ public class Compte {
         return numerocompte;
     }
 
-
-
-    public long getSolde() {
+    public int getSolde() {
         return solde;
     }
 
+    public void setSolde(int solde) { this.solde = solde; }
 
     public Date getDatecreation() {
         return datecreation;
@@ -71,10 +68,5 @@ public class Compte {
         this.numerocompte = numerocompte;
     }
 
-    public void setSolde(long solde) {
-        this.solde = solde;
-    }
-
-    public void setPartenaire() {
-    }
+    public void setPartenaire() { }
 }

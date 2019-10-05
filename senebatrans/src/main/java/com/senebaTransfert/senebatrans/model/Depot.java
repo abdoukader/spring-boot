@@ -11,22 +11,26 @@ import java.util.Date;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = "compte")
+@EqualsAndHashCode(exclude = "depot")
 @Table(name = "depot")
 public class Depot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotBlank
+
     @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date datedepot;
-    @NotBlank
+
     @Column(length = 50)
-    private String montant;
+    private int montant;
     @JoinColumn(name = "compte_id",referencedColumnName ="id")
     @ManyToOne(optional = false)
     @JsonIgnoreProperties("depot")
     private Compte compte;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private User user;
 
     public int getId() {
         return id;
@@ -44,11 +48,27 @@ public class Depot {
         this.datedepot = datedepot;
     }
 
-    public String getMontant() {
+    public int getMontant() {
         return montant;
     }
 
-    public void setMontant(String montant) {
+    public void setMontant(int montant) {
         this.montant = montant;
+    }
+
+    public Compte getCompte() {
+        return compte;
+    }
+
+    public void setCompte(Compte compte) {
+        this.compte = compte;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
